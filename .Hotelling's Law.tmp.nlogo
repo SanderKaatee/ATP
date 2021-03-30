@@ -258,7 +258,7 @@ to-report choose-store
 
   let best-store NOBODY
   let best-utility 0
-  let potential-stores shuffle sort turtles
+  let potential-stores ssort turtles
 
   foreach potential-stores
   [ current-store ->
