@@ -255,14 +255,17 @@ end
 ;;; not to choose any store. In other words can return a store or a NOBODY
 
 to-report choose-store
-
   let best-store NOBODY
-  let best-utility 0
-  let potential-stores shuffle sort turtles
+  let potential-stores sort turtles
 
   foreach potential-stores
   [ current-store ->
-    if ( [ price ] of current-store < funds and distance current-store < travel and ( ( ( 1 / [ price ] of current-store ) + ( 1 / ( distance current-store + 1 ) ) ) > best-utility ) )  [set best-store current-store]
+    if ( [ price ] of current-store < funds and distance current-store < travel )
+    [
+     if (best-store = NOBODY)
+      [ set best-store current-store]
+      if ( [ price ] of current-store < [ price ] of best-store and distance current-store < distance best-store )
+      [set best-store current-store] ]
   ]
 
   report best-store
@@ -489,7 +492,7 @@ start-up-probability
 start-up-probability
 0
 100
-100.0
+0.0
 1
 1
 %
@@ -504,7 +507,7 @@ cost-of-living
 cost-of-living
 0
 20000
-1200.0
+1800.0
 200
 1
 NIL
@@ -519,7 +522,7 @@ initial-number-of-stores
 initial-number-of-stores
 0
 100
-3.0
+0.0
 1
 1
 NIL
@@ -551,7 +554,7 @@ mean-distance
 mean-distance
 0
 40
-20.0
+6.9
 0.1
 1
 NIL
@@ -566,7 +569,7 @@ min-funds
 min-funds
 -10
 100
-10.0
+17.0
 1
 1
 NIL
